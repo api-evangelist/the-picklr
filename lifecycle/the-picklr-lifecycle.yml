@@ -1,0 +1,58 @@
+generated: '2026-08-30'
+method: probed
+source: https://thepicklr.com/wp-json/ + site probes 2026-08-30
+name: The Picklr — API lifecycle
+description: >-
+  The Picklr runs no API programme, so there is no versioning policy, deprecation policy, SLA
+  or status page to record. What exists is inherited platform versioning: WordPress namespaces
+  the REST API by path, and the deployment currently serves wp/v2 alongside 35 other
+  plugin-supplied namespaces. Every field below is an observed absence, individually probed.
+versioning:
+  style: path-namespace
+  current: wp/v2
+  policy_published: false
+  namespaces_live: 36
+  source:
+    url: https://thepicklr.com/wp-json/
+    status: 200
+  note: >-
+    Namespace churn here tracks WordPress core and plugin upgrades, not a decision by The
+    Picklr. A consumer of this surface gets no notice when a plugin namespace appears or
+    disappears.
+deprecation:
+  policy_published: false
+  sunset_header: not observed
+  deprecation_header: not observed
+  rfc8594: false
+  deprecated_operations: []
+  note: No RFC 8594 Sunset or Deprecation header appeared on any probed response.
+status_page:
+  published: false
+  url: null
+  probes:
+  - url: https://status.thepicklr.com/
+    status: 000
+    detail: 'TLS SAN mismatch — the hostname is not provisioned.'
+sla:
+  published: false
+  url: null
+support:
+  channel: hello@thepicklr.com
+  developer_support: false
+  note: >-
+    A general company contact address is published; there is no developer support channel,
+    forum or issue tracker.
+changelog:
+  published: false
+  probes:
+  - url: https://thepicklr.com/blog/
+    status: 200
+    detail: >-
+      A marketing blog exists (23 posts) but it is pickleball content, not a dated API or
+      product changelog.
+maturity:
+  stage: incidental
+  note: >-
+    The API surface is a by-product of the marketing site's CMS and of an AI plugin the
+    company installed. It is live and useful, but it is not managed, versioned, supported or
+    announced as a product.

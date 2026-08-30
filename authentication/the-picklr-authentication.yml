@@ -1,0 +1,71 @@
+generated: '2026-08-30'
+method: probed
+source: https://thepicklr.com/.well-known/oauth-authorization-server
+name: The Picklr — authentication profile
+description: >-
+  Two distinct authentication models are live on thepicklr.com, and they gate different
+  surfaces. The wp/v2 content collections are readable with no credential at all. Writes and
+  the MCP endpoints are gated — by WordPress Application Passwords for the classic REST
+  routes, and by an OAuth 2.1 authorization server (dynamic registration, PKCE-only) for the
+  MCP resource. Everything below was read from documents the site serves; nothing is inferred
+  from vendor documentation.
+schemes:
+- id: anonymous
+  type: none
+  applies_to: GET on the public wp/v2 collections (posts, pages, media, location, press, event, categories, tags, types, taxonomies, search)
+  verified: probed
+  evidence:
+    url: https://thepicklr.com/wp-json/wp/v2/posts?per_page=1
+    status: 200
+  note: No API key, token or registration is required to read the published content surface.
+- id: application_password
+  type: http
+  scheme: basic
+  applies_to: WordPress REST write operations and the non-OAuth MCP endpoints
+  authorization_endpoint: https://thepicklr.com/wp-admin/authorize-application.php
+  verified: probed
+  evidence:
+    url: https://thepicklr.com/wp-json/
+    status: 200
+    field: authentication.application-passwords.endpoints.authorization
+  note: >-
+    Advertised by the live API root document. Credentials are issued per-user from the
+    WordPress admin; there is no self-service developer signup.
+- id: oauth2
+  type: oauth2
+  applies_to: https://thepicklr.com/wp-json/mcp/novamira-oauth
+  verified: probed
+  metadata: https://thepicklr.com/.well-known/oauth-authorization-server
+  protected_resource_metadata: https://thepicklr.com/.well-known/oauth-protected-resource
+  issuer: https://thepicklr.com
+  endpoints:
+    authorization: https://thepicklr.com/wp-admin/admin.php?page=novamira-oauth-authorize
+    token: https://thepicklr.com/wp-json/novamira/v1/oauth/token
+    registration: https://thepicklr.com/wp-json/novamira/v1/oauth/register
+    revocation: https://thepicklr.com/wp-json/novamira/v1/oauth/revoke
+    introspection: https://thepicklr.com/wp-json/novamira/v1/oauth/introspect
+    device_authorization: https://thepicklr.com/wp-json/novamira/v1/oauth/device
+  grant_types: [authorization_code, refresh_token, 'urn:ietf:params:oauth:grant-type:device_code']
+  response_types: [code]
+  code_challenge_methods: [S256]
+  token_endpoint_auth_methods: [none]
+  bearer_methods_supported: [header]
+  scopes: [mcp]
+  dynamic_client_registration: true
+  evidence:
+    url: https://thepicklr.com/.well-known/oauth-authorization-server
+    status: 200
+posture:
+  public_read: true
+  self_service_signup: false
+  api_keys: false
+  mtls: false
+  pkce_required: true
+  note: >-
+    token_endpoint_auth_methods is ["none"] and code_challenge_methods is ["S256"] only —
+    a public-client, PKCE-mandatory OAuth 2.1 profile, which is the shape the MCP
+    authorization spec expects. There is no client_secret path and no implicit grant.
+gaps:
+- No human-readable authentication documentation is published anywhere on thepicklr.com; the
+  entire auth model above had to be read out of machine metadata.
+- No developer portal, signup or key-issuance flow exists for third parties.

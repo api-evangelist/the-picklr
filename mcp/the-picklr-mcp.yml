@@ -1,0 +1,100 @@
+generated: '2026-08-30'
+method: probed
+source: https://thepicklr.com/.well-known/oauth-protected-resource
+name: The Picklr MCP Server
+description: >-
+  thepicklr.com serves live, remotely reachable Model Context Protocol endpoints. They are
+  exposed by the Novamira WordPress plugin (v1.11.4) through the WordPress MCP adapter, and
+  the site advertises them properly: RFC 9728 protected-resource metadata names the OAuth
+  endpoint as the resource, and RFC 8414 authorization-server metadata publishes a single
+  scope, "mcp". This is a real agent surface on the company's own domain — but it is a
+  site-management surface over the WordPress marketing site, not a pickleball club, booking
+  or membership API. Court reservations and memberships run on PlayByPoint, a third-party
+  platform, and expose nothing under The Picklr's control.
+deployment:
+  mode: remote
+  endpoint: https://thepicklr.com/wp-json/mcp/novamira-oauth
+  auth: oauth
+  verified: probed
+  install: null
+  package: null
+  note: >-
+    No stdio/npx package is published by the provider. The endpoint above is the one named
+    as "resource" by the site's own /.well-known/oauth-protected-resource document.
+servers:
+- name: novamira-oauth
+  endpoint: https://thepicklr.com/wp-json/mcp/novamira-oauth
+  methods: [POST, GET, DELETE]
+  auth: oauth
+  canonical: true
+  probe:
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    response: '{"code":"rest_oauth_required","message":"OAuth authentication required.","data":{"status":401}}'
+  note: The resource named by /.well-known/oauth-protected-resource.
+- name: novamira
+  endpoint: https://thepicklr.com/wp-json/mcp/novamira
+  methods: [POST, GET, DELETE]
+  auth: wordpress-session-or-application-password
+  canonical: false
+  probe:
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    response: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+- name: mcp-adapter-default-server
+  endpoint: https://thepicklr.com/wp-json/mcp/mcp-adapter-default-server
+  methods: [POST, GET, DELETE]
+  auth: wordpress-session-or-application-password
+  canonical: false
+  probe:
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    response: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+discovery:
+  route_index: https://thepicklr.com/wp-json/mcp
+  route_index_status: 200
+  note: >-
+    The mcp namespace is listed in the public WordPress REST route index at
+    https://thepicklr.com/wp-json/ and enumerable anonymously at /wp-json/mcp, which is how
+    the three server endpoints above were found.
+tools:
+  status: gated
+  count: null
+  note: >-
+    tools/list returns HTTP 401 on all three endpoints. The live tool set and its
+    inputSchemas require an authenticated OAuth introspection with the "mcp" scope, which
+    this pipeline does not hold and will not guess. No candidate tool list is asserted here:
+    the WordPress abilities namespace (/wp-json/wp-abilities/v1) and the Novamira chat tool
+    routes exist, but which abilities are registered as MCP tools on THIS deployment is not
+    anonymously observable, and inventing that list would misrepresent the surface.
+oauth:
+  authorization_server: https://thepicklr.com
+  metadata: https://thepicklr.com/.well-known/oauth-authorization-server
+  protected_resource_metadata: https://thepicklr.com/.well-known/oauth-protected-resource
+  scopes: [mcp]
+  grant_types: [authorization_code, refresh_token, 'urn:ietf:params:oauth:grant-type:device_code']
+  code_challenge_methods: [S256]
+  dynamic_client_registration: https://thepicklr.com/wp-json/novamira/v1/oauth/register
+software:
+  name: Novamira
+  plugin_version: 1.11.4
+  rest_api_version: 1
+  platform: WordPress 7.1
+  features: [abilities_bearer_auth, agent_context, rest_skills, generalized_execution_shim]
+  source: https://thepicklr.com/.well-known/oauth-protected-resource
+x-evidence:
+  fetched: '2026-08-30'
+  probes:
+  - url: https://thepicklr.com/wp-json/mcp
+    status: 200
+  - url: https://thepicklr.com/wp-json/mcp/novamira-oauth
+    status: 401
+  - url: https://thepicklr.com/wp-json/mcp/novamira
+    status: 401
+  - url: https://thepicklr.com/wp-json/mcp/mcp-adapter-default-server
+    status: 401
+  - url: https://thepicklr.com/.well-known/oauth-protected-resource
+    status: 200

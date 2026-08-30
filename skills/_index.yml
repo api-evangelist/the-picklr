@@ -1,0 +1,31 @@
+generated: '2026-08-30'
+method: generated
+source: openapi/the-picklr-wordpress-rest-openapi.json + conventions/the-picklr-conventions.yml + errors/the-picklr-problem-types.yml
+name: The Picklr — Agent Skills
+description: >-
+  Packaged operating instructions for the two things an agent can actually do against The
+  Picklr's public API. Every operationId referenced was taken from the OpenAPI in openapi/,
+  which is itself derived from the route index the site serves; none was invented. Both skills
+  are read-only because the reachable surface is read-only.
+skill_count: 2
+skills:
+- name: the-picklr-find-clubs
+  file: the-picklr-find-clubs.md
+  api: The Picklr WordPress REST API
+  summary: Look up club locations — full directory, search, and single-club detail.
+  operations: [get_wp_v2_location, get_wp_v2_location_id, get_wp_v2_search]
+- name: the-picklr-read-content
+  file: the-picklr-read-content.md
+  api: The Picklr WordPress REST API
+  summary: Read blog posts, pages, press and events with correct pagination and filtering.
+  operations: [get_wp_v2_posts, get_wp_v2_posts_id, get_wp_v2_pages, get_wp_v2_pages_id, get_wp_v2_press, get_wp_v2_event, get_wp_v2_categories, get_wp_v2_tags, get_wp_v2_types]
+not_covered:
+- surface: MCP
+  reason: >-
+    tools/list is 401-gated on all three endpoints, so no real tool name or input schema is
+    known. A skill written against guessed tools would teach an agent to call operations that
+    may not exist.
+- surface: Booking, reservations, membership
+  reason: >-
+    Not part of any Picklr-owned API. These run on PlayByPoint (app.playbypoint.com), a
+    third-party platform.

@@ -1,0 +1,92 @@
+generated: '2026-08-30'
+method: derived
+source: https://thepicklr.com/wp-json/wp/v2/types + openapi/the-picklr-wordpress-rest-openapi.json
+name: The Picklr — data model
+description: >-
+  Entity graph of the publicly readable content surface, derived from the live post-type
+  registry the site serves. Counts are the X-WP-Total values returned by each collection on
+  2026-08-30. The domain-meaningful entities here are Location, Event, Press and ClubClinic —
+  the franchise's own operational content — sitting on the standard WordPress Post/Page/Media
+  substrate.
+entities:
+- name: Location
+  rest_base: location
+  path: /wp/v2/location
+  count: 157
+  description: >-
+    A Picklr club. The largest and most valuable collection on the surface — one record per
+    open or announced franchise location, cross-published as an XML feed at
+    https://thepicklr.com/location-sitemap.xml.
+  identifier: id (integer)
+  relationships:
+  - {type: has_one, target: Media, via: featured_media}
+- name: Post
+  rest_base: posts
+  path: /wp/v2/posts
+  count: 23
+  description: Blog articles — pickleball instruction, company news and franchise updates.
+  identifier: id (integer)
+  relationships:
+  - {type: has_many, target: Category, via: categories}
+  - {type: has_many, target: Tag, via: tags}
+  - {type: has_one, target: Media, via: featured_media}
+  - {type: belongs_to, target: Author, via: author}
+- name: Page
+  rest_base: pages
+  path: /wp/v2/pages
+  count: 53
+  description: Static site pages — membership, academy, franchise, legal.
+  identifier: id (integer)
+  relationships:
+  - {type: belongs_to, target: Page, via: parent}
+  - {type: has_one, target: Media, via: featured_media}
+- name: Press
+  rest_base: press
+  path: /wp/v2/press
+  count: 5
+  description: Press coverage and media mentions.
+  identifier: id (integer)
+- name: Event
+  rest_base: event
+  path: /wp/v2/event
+  count: 4
+  description: Tournaments, leagues and social events.
+  identifier: id (integer)
+- name: ClubClinic
+  rest_base: club_clinics
+  path: /wp/v2/club_clinics
+  count: 0
+  description: >-
+    Coaching clinics. The post type is registered and the collection returns HTTP 200, but it
+    is currently empty — clinic scheduling lives in PlayByPoint, not here.
+  identifier: id (integer)
+- name: Media
+  rest_base: media
+  path: /wp/v2/media
+  count: 1188
+  description: Images and files.
+  identifier: id (integer)
+- name: Category
+  rest_base: categories
+  path: /wp/v2/categories
+  count: 2
+  identifier: id (integer)
+- name: Tag
+  rest_base: tags
+  path: /wp/v2/tags
+  count: 5
+  identifier: id (integer)
+relationships_note: >-
+  WordPress expresses relationships through the _links / _embedded HAL-ish envelope rather
+  than through $ref in a schema. The edges above were read from the type registry and the
+  standard core field set, not invented.
+id_scheme:
+  style: opaque-integer
+  prefixed: false
+  note: No typed or prefixed identifiers; ids are integers unique per site, not per type.
+excluded:
+  - name: Booking / Reservation / Membership
+    reason: >-
+      Not present in this contract at all. Court bookings, membership records and payments are
+      held by PlayByPoint (app.playbypoint.com), a third-party platform. No Picklr-owned
+      endpoint exposes them.

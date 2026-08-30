@@ -1,0 +1,29 @@
+generated: '2026-08-30'
+method: probed
+source: https://thepicklr.com/.well-known/oauth-authorization-server
+name: The Picklr — OAuth scopes
+description: >-
+  The authorization server publishes exactly one scope. It is recorded here verbatim from the
+  RFC 8414 metadata document; no additional scopes are inferred, and no scope reference page
+  exists on the site to enrich them from.
+authorization_server: https://thepicklr.com
+metadata: https://thepicklr.com/.well-known/oauth-authorization-server
+docs: null
+docs_note: The provider publishes no scopes or permissions reference page.
+scope_count: 1
+scopes:
+- name: mcp
+  description: >-
+    Access the Model Context Protocol server exposed at
+    https://thepicklr.com/wp-json/mcp/novamira-oauth. The authorization server declares no
+    finer-grained scopes, so this single scope is all-or-nothing for the MCP surface.
+  source: scopes_supported
+  granularity: coarse
+consent:
+  pkce_required: true
+  code_challenge_methods: [S256]
+  token_endpoint_auth_methods: [none]
+x-evidence:
+  fetched: '2026-08-30'
+  url: https://thepicklr.com/.well-known/oauth-authorization-server
+  http_status: 200

@@ -1,0 +1,63 @@
+generated: '2026-08-30'
+method: probed
+source: https://thepicklr.com/.well-known/
+name: The Picklr — /.well-known/ discovery documents
+description: >-
+  Probe of every /.well-known/ path this pipeline checks, against the single host The Picklr
+  operates. Three OAuth/MCP discovery documents are served and were saved verbatim; the
+  security.txt, api-catalog, ai-plugin and A2A agent-card paths all return HTTP 404 with the
+  site's WordPress 404 page. Absence is recorded as data, not as a failure.
+hosts:
+- host: thepicklr.com
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    file: the-picklr-oauth-authorization-server.json
+    note: >-
+      RFC 8414 authorization server metadata. Issuer https://thepicklr.com, PKCE S256 only,
+      dynamic client registration, device authorization grant, single scope "mcp".
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json
+    file: the-picklr-openid-configuration.json
+    note: >-
+      Byte-identical to the oauth-authorization-server document. It advertises no
+      jwks_uri, userinfo_endpoint, id_token_signing_alg_values_supported or
+      subject_types_supported, so this is OAuth 2.1 metadata served at the OIDC path
+      rather than a real OpenID Provider configuration.
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: application/json
+    file: the-picklr-oauth-protected-resource.json
+    note: >-
+      RFC 9728 protected resource metadata. Names the MCP endpoint
+      https://thepicklr.com/wp-json/mcp/novamira-oauth as the protected resource and
+      identifies the server software as Novamira 1.11.4 on WordPress 7.1.
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+    note: Not served. WordPress 404 page returned.
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+    note: Not served (RFC 9727).
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+    note: Not served.
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+    note: Not served. No A2A agent card at the canonical 0.3+ path.
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+    note: Not served. No A2A agent card at the pre-0.3 legacy path either.
+summary:
+  hosts_probed: 1
+  documents_served: 3
+  documents_absent: 5
+  security_txt: false
+  api_catalog: false
+  agent_card: false

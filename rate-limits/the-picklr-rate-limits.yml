@@ -1,0 +1,32 @@
+generated: '2026-08-30'
+method: probed
+source: Live response headers from https://thepicklr.com/wp-json/ observed 2026-08-30
+name: The Picklr — rate limits
+description: >-
+  No rate limits are documented and none are signalled at runtime. Every 2xx and 4xx response
+  observed during probing carried no rate-limit header of any kind, so a client has no way to
+  discover its budget or its reset window except by being cut off. This is an honest zero, not
+  an unchecked field.
+limit_count: 0
+documented: false
+docs: null
+response_headers:
+  x_ratelimit: absent
+  ratelimit_draft: absent
+  retry_after: absent
+  observed_on:
+  - url: https://thepicklr.com/wp-json/wp/v2/posts?per_page=1
+    status: 200
+    rate_limit_headers: none
+  - url: https://thepicklr.com/wp-json/wp/v2/location?per_page=1
+    status: 200
+    rate_limit_headers: none
+  - url: https://thepicklr.com/wp-json/mcp/novamira-oauth
+    status: 401
+    rate_limit_headers: none
+exhaustion_status: unknown
+limits: []
+note: >-
+  Any throttling in force is applied at the CDN/host edge and is not advertised to callers.
+  Deliberate limit-probing was not performed — this pipeline does not stress a provider's
+  production site to discover a threshold.

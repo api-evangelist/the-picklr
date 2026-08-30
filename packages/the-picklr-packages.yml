@@ -1,0 +1,40 @@
+generated: '2026-08-30'
+method: searched
+source: npm, PyPI, RubyGems, crates.io, NuGet, Maven Central, pkg.go.dev, Packagist, github.com/thepicklr
+name: The Picklr — client packages and SDKs
+description: >-
+  The Picklr publishes no client libraries. The registries below were searched and the
+  company's GitHub organisation was checked directly via the GitHub API; nothing first-party
+  exists. This is an expected result for a consumer franchise with no API programme, and it is
+  recorded rather than omitted so the absence is legible as a checked fact.
+package_count: 0
+official_sdk_count: 0
+packages: []
+registries_searched:
+- {registry: npm, result: none, note: "The only npm package named picklr is an unrelated line-editing utility; the @thepicklr scope 404s."}
+- {registry: PyPI, result: none}
+- {registry: RubyGems, result: none}
+- {registry: crates.io, result: none}
+- {registry: NuGet, result: none}
+- {registry: Maven Central, result: none}
+- {registry: pkg.go.dev, result: none}
+- {registry: Packagist, result: none}
+source_control:
+- org: https://github.com/thepicklr
+  api: https://api.github.com/orgs/thepicklr
+  status: 200
+  public_repos: 0
+  created_at: '2025-10-08'
+  ownership: unconfirmed
+  note: >-
+    An organisation with this login exists but is empty and carries no name, description,
+    blog or email, so it cannot be confirmed as this company's. No GitHubOrganization pointer
+    is emitted on the strength of an unverifiable, contentless namespace.
+mobile_apps:
+- name: The Picklr +
+  platform: Android
+  url: https://play.google.com/store/apps/details?id=com.playbypoint.thepicklrlogan
+  first_party: false
+  note: >-
+    The application id is com.playbypoint.* — the member app is a white-labelled PlayByPoint
+    build, published under the vendor's package namespace, not a Picklr-engineered client.

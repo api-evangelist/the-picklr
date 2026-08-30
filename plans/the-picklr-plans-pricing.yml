@@ -1,0 +1,88 @@
+generated: '2026-08-30'
+method: searched
+source: https://thepicklr.com/membership-and-pricing/
+name: The Picklr — membership plans
+description: >-
+  The Picklr sells consumer pickleball club memberships, not API plans. There is no API
+  pricing, no developer tier and no metered API product; the tiers below are the membership
+  products the company publishes. Dollar prices are deliberately withheld from the national
+  site and set per club — the pricing page routes every tier to a "Find Your Club" selector,
+  and the only nationally published price is the trial. Recorded verbatim; no price is
+  reconstructed or estimated.
+currency: USD
+billing_note: >-
+  Recurring membership pricing is club-specific and is only shown after selecting a location,
+  where it is served by PlayByPoint (app.playbypoint.com/f/thepicklr<club>/memberships), a
+  third-party platform.
+api_plans_published: false
+plan_count: 6
+plans:
+- name: Unlimited Membership
+  price: null
+  price_note: Set per club; not published nationally.
+  billing_period: monthly
+  audience: adults
+  included:
+  - Nationwide access to every Picklr location
+  - Unlimited court reservations
+  - Unlimited open play
+  - 4 clinic passes per month
+  - 4 guest passes per month
+- name: PLAY Membership
+  price: null
+  price_note: Set per club; not published nationally.
+  billing_period: monthly
+  audience: adults
+  included:
+  - Unlimited open play
+  - 1 clinic pass per month
+  - 50% off court reservations
+  - 50% off leagues and tournaments
+- name: Junior Unlimited Membership
+  price: null
+  price_note: Set per club; not published nationally.
+  billing_period: monthly
+  audience: ages 5-17
+  included:
+  - Nationwide access
+  - Unlimited court reservations
+  - Junior open play
+  - 4 academy clinic passes per month
+  - 4 guest passes per month
+- name: Family Unlimited Membership
+  price: null
+  price_note: Set per club; not published nationally.
+  billing_period: monthly
+  audience: up to 2 adults and 4 juniors
+  included:
+  - Nationwide access
+  - Adult and junior open play
+  - 8 clinic passes per month
+  - 8 guest passes per month
+- name: Trial Membership
+  price: 30
+  currency: USD
+  billing_period: one-time
+  duration: 15 days
+  audience: prospective members
+  included:
+  - Unlimited court reservations
+  - Open play
+  - Leagues and tournaments
+  - 4 clinic passes
+  note: The only price published nationally on the membership page.
+- name: Non-Member Pricing
+  price: null
+  price_note: Per-booking rates, set per club.
+  billing_period: per-booking
+  audience: walk-ins
+  included:
+  - Individual court bookings without a membership
+limits_note: >-
+  Booking limits are club-level and published in club membership terms rather than centrally —
+  the reservation window observed in club material ranges from 7 to 14 days ahead with 1 to 2
+  concurrent standing reservations. Because these vary by club, no single value is asserted here.
+x-evidence:
+  fetched: '2026-08-30'
+  url: https://thepicklr.com/membership-and-pricing/
+  http_status: 200

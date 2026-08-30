@@ -1,0 +1,58 @@
+overlay: 1.0.0
+info:
+  title: The Picklr WordPress REST API — API Evangelist enhancements
+  version: 1.0.0
+x-provenance:
+  generated: '2026-08-30'
+  method: generated
+  source: openapi/the-picklr-wordpress-rest-openapi.json
+  extends: openapi/the-picklr-wordpress-rest-openapi.json
+  note: >-
+    Records what this pipeline added on top of the base description. The base description is
+    itself derived from the route index thepicklr.com serves; this overlay never mutates it.
+actions:
+- target: $.info
+  description: >-
+    Flag the provenance of the whole document so no consumer mistakes a derived description
+    for a first-party specification.
+  update:
+    x-api-evangelist-provenance: derived-from-served-route-index
+    x-api-evangelist-source: https://thepicklr.com/wp-json/
+    x-api-evangelist-verified: '2026-08-30'
+- target: $.info
+  description: Attach the discovery documents the provider actually serves.
+  update:
+    x-llms-txt: https://thepicklr.com/llms.txt
+    x-oauth-authorization-server: https://thepicklr.com/.well-known/oauth-authorization-server
+    x-oauth-protected-resource: https://thepicklr.com/.well-known/oauth-protected-resource
+    x-mcp-endpoint: https://thepicklr.com/wp-json/mcp/novamira-oauth
+- target: $.info
+  description: >-
+    Record that the reachable surface is read-only, so downstream agent tooling does not look
+    for idempotency, dry-run or reversal semantics that cannot exist here.
+  update:
+    x-write-surface: none-for-third-parties
+    x-reversibility: na
+    x-idempotency: na
+- target: $.paths['/wp/v2/location'].get
+  description: >-
+    Mark the location collection as the domain-meaningful entity on this surface — it is the
+    franchise directory, and the reason this API is worth calling at all.
+  update:
+    x-primary-collection: true
+    x-record-count-observed: 157
+    x-observed-at: '2026-08-30'
+    x-alternate-feed: https://thepicklr.com/location-sitemap.xml
+- target: $.paths['/wp/v2/club_clinics'].get
+  description: Warn that the post type is registered but currently empty on this deployment.
+  update:
+    x-record-count-observed: 0
+    x-note: >-
+      Registered and returns HTTP 200, but holds no records. Clinic scheduling lives in
+      PlayByPoint, not in this API.
+- target: $.components.schemas.WPError
+  description: State plainly that the error envelope is not RFC 9457.
+  update:
+    x-error-format: wordpress-rest
+    x-rfc9457: false
+    x-branch-on: code

@@ -1,23 +1,142 @@
 aid: the-picklr
 name: The Picklr
-description: 'The Picklr is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  The Picklr is the largest indoor pickleball club franchise in North America, founded in 2021
+  in Utah by Jorge Barragan and Austin Wood and franchising since March 2023. It operates
+  membership-based indoor facilities offering unlimited court reservations, open play, adult
+  and junior coaching academies, leagues, tournaments and corporate events, with a single
+  membership valid at every club nationwide. The company publishes no developer programme and
+  sells no API product. It does, however, serve a genuine machine-readable surface from its own
+  domain: a public WordPress REST API exposing 157 club locations plus pages, posts, press and
+  events; a published llms.txt; and three live Model Context Protocol endpoints advertised
+  through RFC 8414 and RFC 9728 discovery documents and gated by an OAuth 2.1 authorization
+  server with PKCE and dynamic client registration. Court booking, membership billing and
+  reservations run on PlayByPoint, a third-party platform, and are outside any Picklr-owned
+  contract.
+image: https://thepicklr.com/wp-content/uploads/2022/12/logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/the-picklr/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment
 specificationVersion: '0.20'
 created: '2026-08-30'
 modified: '2026-08-30'
 tags:
 - Company
-apis: []
+- Sports
+- Pickleball
+- Fitness
+- Franchising
+- Recreation
+- Health and Wellness
+- Consumer
+- Content Management
+- Model Context Protocol
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- name: The Picklr WordPress REST API
+  description: >-
+    The public read surface of thepicklr.com, served by WordPress core and the site's plugins.
+    Anonymous GET returns the franchise's own published content — 157 club location records,
+    53 pages, 23 blog posts, 5 press items and 4 events — with page-number pagination,
+    X-WP-Total headers and sparse-fieldset support. Writes require a WordPress Application
+    Password and are not offered to third parties. No OpenAPI is published by the provider;
+    the description in openapi/ is a mechanical transform of the route index the site serves
+    at /wp-json/, restricted to routes whose anonymous access was individually verified.
+  humanURL: https://thepicklr.com/wp-json/
+  baseURL: https://thepicklr.com/wp-json
+  tags:
+  - Content
+  - Locations
+  - Events
+  - WordPress
+  properties:
+  - type: OpenAPI
+    url: openapi/the-picklr-wordpress-rest-openapi.json
+  - type: Overlay
+    url: overlays/the-picklr-wordpress-rest-overlay.yaml
+  - type: DataModel
+    url: data-model/the-picklr-data-model.yml
+  - type: ErrorCatalog
+    url: errors/the-picklr-problem-types.yml
+  - type: Conventions
+    url: conventions/the-picklr-conventions.yml
+  - type: RateLimits
+    url: rate-limits/the-picklr-rate-limits.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+- name: The Picklr MCP Server
+  description: >-
+    Three Model Context Protocol endpoints registered under the mcp REST namespace on
+    thepicklr.com, exposed by the Novamira WordPress plugin (v1.11.4). The canonical one,
+    /wp-json/mcp/novamira-oauth, is named as the protected resource by the site's RFC 9728
+    metadata and is gated by OAuth 2.1 with a single scope, "mcp". tools/list returns HTTP 401
+    anonymously, so the live tool set and its input schemas were not enumerated and are not
+    asserted. This is a site-management agent surface over the marketing site, not a booking
+    or membership API.
+  humanURL: https://thepicklr.com/wp-json/mcp
+  baseURL: https://thepicklr.com/wp-json/mcp/novamira-oauth
+  tags:
+  - Model Context Protocol
+  - Agents
+  - OAuth
+  properties:
+  - type: MCPServer
+    url: mcp/the-picklr-mcp.yml
+  - type: Authentication
+    url: authentication/the-picklr-authentication.yml
+  - type: OAuthScopes
+    url: scopes/the-picklr-scopes.yml
 common:
+- type: DomainSecurity
+  url: security/the-picklr-domain-security.yml
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://thepicklr.com/
+- type: Blog
+  url: https://thepicklr.com/blog/
+- type: Pricing
+  url: https://thepicklr.com/membership-and-pricing/
+- type: HelpCenter
+  url: https://thepicklr.com/membership-faqs/
+- type: TermsOfService
+  url: https://thepicklr.com/terms-of-use/
+- type: PrivacyPolicy
+  url: https://thepicklr.com/privacy-policy/
+- type: LLMsTxt
+  url: llms/the-picklr-llms.txt
+- type: WellKnown
+  url: well-known/the-picklr-well-known.yml
+- type: MCPServer
+  url: mcp/the-picklr-mcp.yml
+- type: Authentication
+  url: authentication/the-picklr-authentication.yml
+- type: OAuthScopes
+  url: scopes/the-picklr-scopes.yml
+- type: Conformance
+  url: conformance/the-picklr-conformance.yml
+- type: ErrorCatalog
+  url: errors/the-picklr-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/the-picklr-lifecycle.yml
+- type: Conventions
+  url: conventions/the-picklr-conventions.yml
+- type: DataModel
+  url: data-model/the-picklr-data-model.yml
+- type: Packages
+  url: packages/the-picklr-packages.yml
+- type: Plans
+  url: plans/the-picklr-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/the-picklr-rate-limits.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-08-30'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v1

@@ -1,0 +1,32 @@
+# The Picklr
+> The Picklr is the largest indoor pickleball club franchise in North America, offering unlimited membership-based court access, professional coaching academies, leagues, tournaments, and events at locations nationwide. Founded in 2021 in Utah by Jorge Barragan and Austin Wood, The Picklr has grown to 80+ locations with 400+ franchise licenses signed across the U.S.
+
+The Picklr operates premium indoor pickleball facilities designed for players of all ages and skill levels. Members enjoy unlimited court reservations, clinics, open play, leagues, and tournaments with a single membership that works at every location nationwide. The company also offers franchise opportunities for entrepreneurs looking to enter the fastest-growing sport in America.
+
+## Core Pages
+- [Home](https://thepicklr.com/): Main landing page with overview of membership, locations, and current promotions
+- [About](https://thepicklr.com/about/): Company history, founding story, mission, and leadership team
+- [Locations](https://thepicklr.com/locations/): Directory of all open and upcoming Picklr club locations, searchable by state
+- [Location Sitemap](https://thepicklr.com/location-sitemap.xml): Auto-updating XML feed with direct links to every Picklr club location page nationwide
+- [Academy](https://thepicklr.com/academy/): Professional pickleball coaching and training programs for adults
+- [Junior Academy](https://thepicklr.com/academy/junior-academy/): Youth coaching and development programs for ages 5-17
+- [Leagues, Tournaments & Events](https://thepicklr.com/leagues-and-socials/): Competitive play, social events, and monthly tournaments
+- [Franchise](https://thepicklr.com/franchise/): Franchise ownership opportunities, business model, leadership team, and application process
+
+## Membership
+- [Membership and Pricing](https://thepicklr.com/membership-and-pricing/): Membership tiers including Unlimited, PLAY, Junior Unlimited, Family Unlimited, and trial options
+- [New to Picklr](https://thepicklr.com/new-to-picklr/): Getting started guide for new members
+- [Membership FAQs](https://thepicklr.com/membership-faqs/): Frequently asked questions about memberships and club access
+- [Gift Cards](https://thepicklr.com/gift-card/): Purchase gift cards for memberships and services
+
+## Additional Pages
+- [Blog](https://thepicklr.com/blog/): Articles, tips, company news, and updates about all things pickleball
+- [Pickleball 101](https://thepicklr.com/academy/pickle-ball-101/): Introduction to pickleball for beginners
+- [Book an Event](https://thepicklr.com/events/): Private and corporate event bookings at Picklr facilities
+- [Sponsors](https://thepicklr.com/sponsors/): Corporate partnerships and sponsorship information
+- [Real Estate Inquiries](https://thepicklr.com/real-estate-construction-inquiries/): Commercial real estate opportunities for new locations
+- [Shop](https://thepicklrstore.com/): Official merchandise and pickleball equipment store (separate domain)
+
+## Optional
+- [Terms of Use](https://thepicklr.com/terms-of-use/): Legal terms of use
+- [Privacy Policy](https://thepicklr.com/privacy-policy/): Privacy policy and data handling practices

@@ -1,0 +1,69 @@
+generated: '2026-08-30'
+method: derived
+source: openapi/the-picklr-wordpress-rest-openapi.json + live 401/404 responses observed 2026-08-30
+name: The Picklr — error catalog
+description: >-
+  Error surface of https://thepicklr.com/wp-json. The envelope and the first three entries
+  were captured verbatim from live responses; the remainder are WordPress REST core codes
+  reachable on this deployment's routes. The provider publishes no error reference of its own.
+format: not-rfc9457
+envelope:
+  content_type: application/json
+  shape: '{"code": "<string slug>", "message": "<human readable>", "data": {"status": <http status>}}'
+  fields:
+    code: Machine-readable error slug. This is the field to branch on.
+    message: Human-readable text, not stable across WordPress versions.
+    data.status: HTTP status code, duplicated inside the body.
+  missing: [type-uri, instance, title, detail, trace-id, retry-after]
+problem_types:
+- code: rest_oauth_required
+  status: 401
+  title: OAuth authentication required
+  observed: true
+  observed_at: https://thepicklr.com/wp-json/mcp/novamira-oauth
+  message: OAuth authentication required.
+  remediation: >-
+    Obtain a bearer token from https://thepicklr.com/wp-json/novamira/v1/oauth/token using
+    authorization_code + PKCE (S256) with scope "mcp", then retry with an Authorization header.
+- code: rest_forbidden
+  status: 401
+  title: Insufficient capability
+  observed: true
+  observed_at: https://thepicklr.com/wp-json/mcp/novamira
+  message: Sorry, you are not allowed to do that.
+  remediation: >-
+    Authenticate with a WordPress Application Password for a user holding the required
+    capability. Note the status is 401, not 403, even though the slug reads as forbidden.
+- code: rest_no_route
+  status: 404
+  title: No matching route
+  observed: true
+  observed_at: https://thepicklr.com/wp-json/wp/v2/locations
+  message: No route was found matching the URL and request method.
+  remediation: >-
+    Check the rest_base for the post type against /wp-json/wp/v2/types — the Locations post
+    type is served at /wp/v2/location (singular), not /wp/v2/locations.
+- code: rest_post_invalid_id
+  status: 404
+  title: Invalid resource id
+  observed: false
+  remediation: Retrieve a valid id from the matching collection endpoint first.
+- code: rest_invalid_param
+  status: 400
+  title: Invalid parameter
+  observed: false
+  remediation: >-
+    Check the parameter against the enum/minimum/maximum published in the route index at
+    https://thepicklr.com/wp-json/ — per_page is capped at 100, context is one of
+    view/embed/edit.
+- code: rest_forbidden_context
+  status: 401
+  title: Context not permitted
+  observed: false
+  remediation: 'Drop ?context=edit, or authenticate as a user with edit capability.'
+retry_guidance:
+  retryable_statuses: [429, 500, 502, 503, 504]
+  retry_after_header: not returned
+  note: >-
+    No Retry-After and no rate-limit headers are returned, so a client must implement blind
+    exponential backoff. See rate-limits/the-picklr-rate-limits.yml.

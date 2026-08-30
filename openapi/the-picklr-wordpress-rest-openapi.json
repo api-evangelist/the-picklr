@@ -1,0 +1,4440 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "The Picklr WordPress REST API (derived)",
+    "version": "wp/v2",
+    "summary": "Public read surface of thepicklr.com, derived from the live WordPress REST route index.",
+    "description": "DERIVED ARTIFACT \u2014 The Picklr does NOT publish an OpenAPI description. This document is a mechanical transform of the WordPress REST API route index the company serves at https://thepicklr.com/wp-json/ (HTTP 200, 937 routes, fetched 2026-08-30). Every path, parameter, type, enum, default and bound below is copied verbatim from that served index; nothing is invented.\n\nScope is deliberately narrow: only the wp/v2 collections whose anonymous GET was individually verified to return HTTP 200 on 2026-08-30 are included, and only the GET method, because anonymous access to this deployment is read-only. The content it exposes is the franchise's own published data \u2014 157 club locations, 53 pages, 23 blog posts, 5 press items and 4 events.\n\nThis is the marketing-site content API. Court booking, membership billing and reservations for The Picklr run on PlayByPoint (app.playbypoint.com/f/thepicklr<club>), a third-party SaaS platform, and are NOT part of this or any Picklr-owned contract.",
+    "contact": {
+      "name": "The Picklr",
+      "url": "https://thepicklr.com/",
+      "email": "hello@thepicklr.com"
+    },
+    "termsOfService": "https://thepicklr.com/terms-of-use/",
+    "x-provenance": {
+      "method": "derived",
+      "source": "https://thepicklr.com/wp-json/",
+      "source_http_status": 200,
+      "derived": "2026-08-30",
+      "derived_by": "api-evangelist enrichment pipeline (local-v1)",
+      "note": "Not published by the provider. Do not represent this as a first-party specification."
+    }
+  },
+  "servers": [
+    {
+      "url": "https://thepicklr.com/wp-json",
+      "description": "Production WordPress REST API for thepicklr.com"
+    }
+  ],
+  "paths": {
+    "/wp/v2/posts": {
+      "get": {
+        "operationId": "get_wp_v2_posts",
+        "summary": "List posts",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "posts"
+        ],
+        "parameters": [
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Current page of the collection.",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of items to be returned in result set.",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "description": "Limit results to those matching a string.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts published after a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "modified_after",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts modified after a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "author",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts assigned to specific authors.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "author_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Ensure result set excludes posts assigned to specific authors.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts published before a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "modified_before",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts modified before a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "description": "Ensure result set excludes specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "search_semantics",
+            "in": "query",
+            "required": false,
+            "description": "How to interpret the search input.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "exact"
+              ]
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Offset the result set by a specific number of items.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "description": "Order sort attribute ascending or descending.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "required": false,
+            "description": "Sort collection by post attribute.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "author",
+                "date",
+                "id",
+                "include",
+                "modified",
+                "parent",
+                "relevance",
+                "slug",
+                "include_slugs",
+                "title"
+              ],
+              "default": "date"
+            }
+          },
+          {
+            "name": "search_columns",
+            "in": "query",
+            "required": false,
+            "description": "Array of column names to be searched.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "enum": [
+                  "post_title",
+                  "post_content",
+                  "post_excerpt"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "slug",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts with one or more specific slugs.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts assigned one or more statuses.",
+            "schema": {
+              "type": "array",
+              "default": "publish",
+              "items": {
+                "enum": [
+                  "publish",
+                  "future",
+                  "draft",
+                  "pending",
+                  "private",
+                  "trash",
+                  "auto-draft",
+                  "inherit",
+                  "request-pending",
+                  "request-confirmed",
+                  "request-failed",
+                  "request-completed",
+                  "acf-disabled",
+                  "spam",
+                  "jp-temp-feedback",
+                  "email_sent",
+                  "email_failed",
+                  "email_scheduled",
+                  "draft-revision",
+                  "pending-revision",
+                  "future-revision",
+                  "any",
+                  "draft-revision",
+                  "pending-revision",
+                  "future-revision"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "tax_relation",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set based on relationship between multiple taxonomies.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "AND",
+                "OR"
+              ]
+            }
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items with specific terms assigned in the categories taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "categories_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items except those with specific terms assigned in the categories taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items with specific terms assigned in the tags taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "tags_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items except those with specific terms assigned in the tags taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "sticky",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items that are sticky.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "ignore_sticky",
+            "in": "query",
+            "required": false,
+            "description": "Whether to ignore sticky posts or not.",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items assigned one or more given formats.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "standard",
+                  "aside",
+                  "chat",
+                  "gallery",
+                  "link",
+                  "image",
+                  "quote",
+                  "status",
+                  "video",
+                  "audio"
+                ],
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-WP-Total": {
+                "description": "Total number of items in the collection.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-WP-TotalPages": {
+                "description": "Total number of pages available.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/posts/{id}": {
+      "get": {
+        "operationId": "get_wp_v2_posts_id",
+        "summary": "Retrieve posts",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "posts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Unique identifier for the resource."
+          },
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "excerpt_length",
+            "in": "query",
+            "required": false,
+            "description": "Override the default excerpt length.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": false,
+            "description": "The password for the post if it is password protected.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/pages": {
+      "get": {
+        "operationId": "get_wp_v2_pages",
+        "summary": "List pages",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "pages"
+        ],
+        "parameters": [
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Current page of the collection.",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of items to be returned in result set.",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "description": "Limit results to those matching a string.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts published after a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "modified_after",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts modified after a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "author",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts assigned to specific authors.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "author_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Ensure result set excludes posts assigned to specific authors.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts published before a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "modified_before",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts modified before a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "description": "Ensure result set excludes specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "menu_order",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts with a specific menu_order value.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "search_semantics",
+            "in": "query",
+            "required": false,
+            "description": "How to interpret the search input.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "exact"
+              ]
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Offset the result set by a specific number of items.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "description": "Order sort attribute ascending or descending.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "required": false,
+            "description": "Sort collection by post attribute.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "author",
+                "date",
+                "id",
+                "include",
+                "modified",
+                "parent",
+                "relevance",
+                "slug",
+                "include_slugs",
+                "title",
+                "menu_order"
+              ],
+              "default": "date"
+            }
+          },
+          {
+            "name": "parent",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items with particular parent IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "parent_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to all items except those of a particular parent ID.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "search_columns",
+            "in": "query",
+            "required": false,
+            "description": "Array of column names to be searched.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "enum": [
+                  "post_title",
+                  "post_content",
+                  "post_excerpt"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "slug",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts with one or more specific slugs.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts assigned one or more statuses.",
+            "schema": {
+              "type": "array",
+              "default": "publish",
+              "items": {
+                "enum": [
+                  "publish",
+                  "future",
+                  "draft",
+                  "pending",
+                  "private",
+                  "trash",
+                  "auto-draft",
+                  "inherit",
+                  "request-pending",
+                  "request-confirmed",
+                  "request-failed",
+                  "request-completed",
+                  "acf-disabled",
+                  "spam",
+                  "jp-temp-feedback",
+                  "email_sent",
+                  "email_failed",
+                  "email_scheduled",
+                  "draft-revision",
+                  "pending-revision",
+                  "future-revision",
+                  "any",
+                  "draft-revision",
+                  "pending-revision",
+                  "future-revision"
+                ],
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-WP-Total": {
+                "description": "Total number of items in the collection.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-WP-TotalPages": {
+                "description": "Total number of pages available.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/pages/{id}": {
+      "get": {
+        "operationId": "get_wp_v2_pages_id",
+        "summary": "Retrieve pages",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "pages"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Unique identifier for the resource."
+          },
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "excerpt_length",
+            "in": "query",
+            "required": false,
+            "description": "Override the default excerpt length.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": false,
+            "description": "The password for the post if it is password protected.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/media": {
+      "get": {
+        "operationId": "get_wp_v2_media",
+        "summary": "List media",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "media"
+        ],
+        "parameters": [
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Current page of the collection.",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of items to be returned in result set.",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "description": "Limit results to those matching a string.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts published after a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "modified_after",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts modified after a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "author",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts assigned to specific authors.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "author_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Ensure result set excludes posts assigned to specific authors.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts published before a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "modified_before",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts modified before a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "description": "Ensure result set excludes specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "search_semantics",
+            "in": "query",
+            "required": false,
+            "description": "How to interpret the search input.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "exact"
+              ]
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Offset the result set by a specific number of items.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "description": "Order sort attribute ascending or descending.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "required": false,
+            "description": "Sort collection by post attribute.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "author",
+                "date",
+                "id",
+                "include",
+                "modified",
+                "parent",
+                "relevance",
+                "slug",
+                "include_slugs",
+                "title"
+              ],
+              "default": "date"
+            }
+          },
+          {
+            "name": "parent",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items with particular parent IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "parent_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to all items except those of a particular parent ID.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "search_columns",
+            "in": "query",
+            "required": false,
+            "description": "Array of column names to be searched.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "enum": [
+                  "post_title",
+                  "post_content",
+                  "post_excerpt"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "slug",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts with one or more specific slugs.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts assigned one or more statuses.",
+            "schema": {
+              "type": "array",
+              "default": "inherit",
+              "items": {
+                "enum": [
+                  "inherit",
+                  "private",
+                  "trash"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "media_type",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to attachments of a particular media type or media types.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "image",
+                  "video",
+                  "text",
+                  "application",
+                  "audio",
+                  "font"
+                ]
+              }
+            }
+          },
+          {
+            "name": "mime_type",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to attachments of a particular MIME type or MIME types.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-WP-Total": {
+                "description": "Total number of items in the collection.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-WP-TotalPages": {
+                "description": "Total number of pages available.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/media/{id}": {
+      "get": {
+        "operationId": "get_wp_v2_media_id",
+        "summary": "Retrieve media",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "media"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Unique identifier for the resource."
+          },
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/location": {
+      "get": {
+        "operationId": "get_wp_v2_location",
+        "summary": "List location",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "location"
+        ],
+        "parameters": [
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Current page of the collection.",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of items to be returned in result set.",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "description": "Limit results to those matching a string.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts published after a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "modified_after",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts modified after a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts published before a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "modified_before",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts modified before a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "description": "Ensure result set excludes specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "menu_order",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts with a specific menu_order value.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "search_semantics",
+            "in": "query",
+            "required": false,
+            "description": "How to interpret the search input.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "exact"
+              ]
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Offset the result set by a specific number of items.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "description": "Order sort attribute ascending or descending.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "required": false,
+            "description": "Sort collection by post attribute.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "author",
+                "date",
+                "id",
+                "include",
+                "modified",
+                "parent",
+                "relevance",
+                "slug",
+                "include_slugs",
+                "title",
+                "menu_order"
+              ],
+              "default": "date"
+            }
+          },
+          {
+            "name": "search_columns",
+            "in": "query",
+            "required": false,
+            "description": "Array of column names to be searched.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "enum": [
+                  "post_title",
+                  "post_content",
+                  "post_excerpt"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "slug",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts with one or more specific slugs.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts assigned one or more statuses.",
+            "schema": {
+              "type": "array",
+              "default": "publish",
+              "items": {
+                "enum": [
+                  "publish",
+                  "future",
+                  "draft",
+                  "pending",
+                  "private",
+                  "trash",
+                  "auto-draft",
+                  "inherit",
+                  "request-pending",
+                  "request-confirmed",
+                  "request-failed",
+                  "request-completed",
+                  "acf-disabled",
+                  "spam",
+                  "jp-temp-feedback",
+                  "email_sent",
+                  "email_failed",
+                  "email_scheduled",
+                  "draft-revision",
+                  "pending-revision",
+                  "future-revision",
+                  "any"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "tax_relation",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set based on relationship between multiple taxonomies.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "AND",
+                "OR"
+              ]
+            }
+          },
+          {
+            "name": "location_category",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items with specific terms assigned in the location_category taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "location_category_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items except those with specific terms assigned in the location_category taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "location_type",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items with specific terms assigned in the location_type taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "location_type_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items except those with specific terms assigned in the location_type taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "continents",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items with specific terms assigned in the continents taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "continents_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items except those with specific terms assigned in the continents taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items with specific terms assigned in the country taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "country_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items except those with specific terms assigned in the country taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-WP-Total": {
+                "description": "Total number of items in the collection.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-WP-TotalPages": {
+                "description": "Total number of pages available.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/location/{id}": {
+      "get": {
+        "operationId": "get_wp_v2_location_id",
+        "summary": "Retrieve location",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "location"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Unique identifier for the resource."
+          },
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": false,
+            "description": "The password for the post if it is password protected.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/press": {
+      "get": {
+        "operationId": "get_wp_v2_press",
+        "summary": "List press",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "press"
+        ],
+        "parameters": [
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Current page of the collection.",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of items to be returned in result set.",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "description": "Limit results to those matching a string.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts published after a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "modified_after",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts modified after a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts published before a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "modified_before",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts modified before a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "description": "Ensure result set excludes specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "menu_order",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts with a specific menu_order value.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "search_semantics",
+            "in": "query",
+            "required": false,
+            "description": "How to interpret the search input.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "exact"
+              ]
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Offset the result set by a specific number of items.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "description": "Order sort attribute ascending or descending.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "required": false,
+            "description": "Sort collection by post attribute.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "author",
+                "date",
+                "id",
+                "include",
+                "modified",
+                "parent",
+                "relevance",
+                "slug",
+                "include_slugs",
+                "title",
+                "menu_order"
+              ],
+              "default": "date"
+            }
+          },
+          {
+            "name": "parent",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items with particular parent IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "parent_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to all items except those of a particular parent ID.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "search_columns",
+            "in": "query",
+            "required": false,
+            "description": "Array of column names to be searched.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "enum": [
+                  "post_title",
+                  "post_content",
+                  "post_excerpt"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "slug",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts with one or more specific slugs.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts assigned one or more statuses.",
+            "schema": {
+              "type": "array",
+              "default": "publish",
+              "items": {
+                "enum": [
+                  "publish",
+                  "future",
+                  "draft",
+                  "pending",
+                  "private",
+                  "trash",
+                  "auto-draft",
+                  "inherit",
+                  "request-pending",
+                  "request-confirmed",
+                  "request-failed",
+                  "request-completed",
+                  "acf-disabled",
+                  "spam",
+                  "jp-temp-feedback",
+                  "email_sent",
+                  "email_failed",
+                  "email_scheduled",
+                  "draft-revision",
+                  "pending-revision",
+                  "future-revision",
+                  "any"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "tax_relation",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set based on relationship between multiple taxonomies.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "AND",
+                "OR"
+              ]
+            }
+          },
+          {
+            "name": "press-category",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items with specific terms assigned in the press-category taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "press-category_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items except those with specific terms assigned in the press-category taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-WP-Total": {
+                "description": "Total number of items in the collection.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-WP-TotalPages": {
+                "description": "Total number of pages available.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/press/{id}": {
+      "get": {
+        "operationId": "get_wp_v2_press_id",
+        "summary": "Retrieve press",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "press"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Unique identifier for the resource."
+          },
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": false,
+            "description": "The password for the post if it is password protected.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/event": {
+      "get": {
+        "operationId": "get_wp_v2_event",
+        "summary": "List event",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "event"
+        ],
+        "parameters": [
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Current page of the collection.",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of items to be returned in result set.",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "description": "Limit results to those matching a string.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts published after a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "modified_after",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts modified after a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "author",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts assigned to specific authors.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "author_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Ensure result set excludes posts assigned to specific authors.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts published before a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "modified_before",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts modified before a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "description": "Ensure result set excludes specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "search_semantics",
+            "in": "query",
+            "required": false,
+            "description": "How to interpret the search input.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "exact"
+              ]
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Offset the result set by a specific number of items.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "description": "Order sort attribute ascending or descending.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "required": false,
+            "description": "Sort collection by post attribute.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "author",
+                "date",
+                "id",
+                "include",
+                "modified",
+                "parent",
+                "relevance",
+                "slug",
+                "include_slugs",
+                "title"
+              ],
+              "default": "date"
+            }
+          },
+          {
+            "name": "search_columns",
+            "in": "query",
+            "required": false,
+            "description": "Array of column names to be searched.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "enum": [
+                  "post_title",
+                  "post_content",
+                  "post_excerpt"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "slug",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts with one or more specific slugs.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts assigned one or more statuses.",
+            "schema": {
+              "type": "array",
+              "default": "publish",
+              "items": {
+                "enum": [
+                  "publish",
+                  "future",
+                  "draft",
+                  "pending",
+                  "private",
+                  "trash",
+                  "auto-draft",
+                  "inherit",
+                  "request-pending",
+                  "request-confirmed",
+                  "request-failed",
+                  "request-completed",
+                  "acf-disabled",
+                  "spam",
+                  "jp-temp-feedback",
+                  "email_sent",
+                  "email_failed",
+                  "email_scheduled",
+                  "draft-revision",
+                  "pending-revision",
+                  "future-revision",
+                  "any"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "tax_relation",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set based on relationship between multiple taxonomies.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "AND",
+                "OR"
+              ]
+            }
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items with specific terms assigned in the month taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "month_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items except those with specific terms assigned in the month taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items assigned one or more given formats.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "standard",
+                  "aside",
+                  "chat",
+                  "gallery",
+                  "link",
+                  "image",
+                  "quote",
+                  "status",
+                  "video",
+                  "audio"
+                ],
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-WP-Total": {
+                "description": "Total number of items in the collection.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-WP-TotalPages": {
+                "description": "Total number of pages available.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/event/{id}": {
+      "get": {
+        "operationId": "get_wp_v2_event_id",
+        "summary": "Retrieve event",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "event"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Unique identifier for the resource."
+          },
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "excerpt_length",
+            "in": "query",
+            "required": false,
+            "description": "Override the default excerpt length.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": false,
+            "description": "The password for the post if it is password protected.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/club_clinics": {
+      "get": {
+        "operationId": "get_wp_v2_club_clinics",
+        "summary": "List club clinics",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "club_clinics"
+        ],
+        "parameters": [
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Current page of the collection.",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of items to be returned in result set.",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "description": "Limit results to those matching a string.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts published after a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "modified_after",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts modified after a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts published before a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "modified_before",
+            "in": "query",
+            "required": false,
+            "description": "Limit response to posts modified before a given ISO8601 compliant date.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "description": "Ensure result set excludes specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "menu_order",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts with a specific menu_order value.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "search_semantics",
+            "in": "query",
+            "required": false,
+            "description": "How to interpret the search input.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "exact"
+              ]
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Offset the result set by a specific number of items.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "description": "Order sort attribute ascending or descending.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "required": false,
+            "description": "Sort collection by post attribute.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "author",
+                "date",
+                "id",
+                "include",
+                "modified",
+                "parent",
+                "relevance",
+                "slug",
+                "include_slugs",
+                "title",
+                "menu_order"
+              ],
+              "default": "date"
+            }
+          },
+          {
+            "name": "parent",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items with particular parent IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "parent_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to all items except those of a particular parent ID.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "search_columns",
+            "in": "query",
+            "required": false,
+            "description": "Array of column names to be searched.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "enum": [
+                  "post_title",
+                  "post_content",
+                  "post_excerpt"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "slug",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts with one or more specific slugs.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to posts assigned one or more statuses.",
+            "schema": {
+              "type": "array",
+              "default": "publish",
+              "items": {
+                "enum": [
+                  "publish",
+                  "future",
+                  "draft",
+                  "pending",
+                  "private",
+                  "trash",
+                  "auto-draft",
+                  "inherit",
+                  "request-pending",
+                  "request-confirmed",
+                  "request-failed",
+                  "request-completed",
+                  "acf-disabled",
+                  "spam",
+                  "jp-temp-feedback",
+                  "email_sent",
+                  "email_failed",
+                  "email_scheduled",
+                  "draft-revision",
+                  "pending-revision",
+                  "future-revision",
+                  "any"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "tax_relation",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set based on relationship between multiple taxonomies.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "AND",
+                "OR"
+              ]
+            }
+          },
+          {
+            "name": "pro_clinics",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items with specific terms assigned in the pro_clinics taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "name": "pro_clinics_exclude",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to items except those with specific terms assigned in the pro_clinics taxonomy.",
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-WP-Total": {
+                "description": "Total number of items in the collection.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-WP-TotalPages": {
+                "description": "Total number of pages available.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/club_clinics/{id}": {
+      "get": {
+        "operationId": "get_wp_v2_club_clinics_id",
+        "summary": "Retrieve club clinics",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "club_clinics"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Unique identifier for the resource."
+          },
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": false,
+            "description": "The password for the post if it is password protected.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/categories": {
+      "get": {
+        "operationId": "get_wp_v2_categories",
+        "summary": "List categories",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "categories"
+        ],
+        "parameters": [
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Current page of the collection.",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of items to be returned in result set.",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "description": "Limit results to those matching a string.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "description": "Ensure result set excludes specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "description": "Order sort attribute ascending or descending.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "asc"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "required": false,
+            "description": "Sort collection by term attribute.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "id",
+                "include",
+                "name",
+                "slug",
+                "include_slugs",
+                "term_group",
+                "description",
+                "count"
+              ],
+              "default": "name"
+            }
+          },
+          {
+            "name": "hide_empty",
+            "in": "query",
+            "required": false,
+            "description": "Whether to hide terms not assigned to any posts.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "parent",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to terms assigned to a specific parent.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "post",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to terms assigned to a specific post.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "slug",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to terms with one or more specific slugs.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-WP-Total": {
+                "description": "Total number of items in the collection.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-WP-TotalPages": {
+                "description": "Total number of pages available.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/categories/{id}": {
+      "get": {
+        "operationId": "get_wp_v2_categories_id",
+        "summary": "Retrieve categories",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "categories"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Unique identifier for the resource."
+          },
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/tags": {
+      "get": {
+        "operationId": "get_wp_v2_tags",
+        "summary": "List tags",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "tags"
+        ],
+        "parameters": [
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Current page of the collection.",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of items to be returned in result set.",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "description": "Limit results to those matching a string.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "description": "Ensure result set excludes specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Offset the result set by a specific number of items.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "description": "Order sort attribute ascending or descending.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "asc"
+            }
+          },
+          {
+            "name": "orderby",
+            "in": "query",
+            "required": false,
+            "description": "Sort collection by term attribute.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "id",
+                "include",
+                "name",
+                "slug",
+                "include_slugs",
+                "term_group",
+                "description",
+                "count"
+              ],
+              "default": "name"
+            }
+          },
+          {
+            "name": "hide_empty",
+            "in": "query",
+            "required": false,
+            "description": "Whether to hide terms not assigned to any posts.",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "post",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to terms assigned to a specific post.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "slug",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to terms with one or more specific slugs.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-WP-Total": {
+                "description": "Total number of items in the collection.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-WP-TotalPages": {
+                "description": "Total number of pages available.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/tags/{id}": {
+      "get": {
+        "operationId": "get_wp_v2_tags_id",
+        "summary": "Retrieve tags",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "tags"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Unique identifier for the resource."
+          },
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/types": {
+      "get": {
+        "operationId": "get_wp_v2_types",
+        "summary": "List types",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "types"
+        ],
+        "parameters": [
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-WP-Total": {
+                "description": "Total number of items in the collection.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-WP-TotalPages": {
+                "description": "Total number of pages available.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/taxonomies": {
+      "get": {
+        "operationId": "get_wp_v2_taxonomies",
+        "summary": "List taxonomies",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "taxonomies"
+        ],
+        "parameters": [
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "description": "Limit results to taxonomies associated with a specific post type.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-WP-Total": {
+                "description": "Total number of items in the collection.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-WP-TotalPages": {
+                "description": "Total number of pages available.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wp/v2/search": {
+      "get": {
+        "operationId": "get_wp_v2_search",
+        "summary": "List search",
+        "description": "Anonymous read access verified 2026-08-30 against the live endpoint.",
+        "tags": [
+          "search"
+        ],
+        "parameters": [
+          {
+            "name": "context",
+            "in": "query",
+            "required": false,
+            "description": "Scope under which the request is made; determines fields present in response.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "embed"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Current page of the collection.",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of items to be returned in result set.",
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "description": "Limit results to those matching a string.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "description": "Limit results to items of an object type.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "post",
+                "term",
+                "post-format"
+              ],
+              "default": "post"
+            }
+          },
+          {
+            "name": "subtype",
+            "in": "query",
+            "required": false,
+            "description": "Limit results to items of one or more object subtypes.",
+            "schema": {
+              "type": "array",
+              "default": "any",
+              "items": {
+                "enum": [
+                  "post",
+                  "page",
+                  "e-floating-buttons",
+                  "elementor_library",
+                  "location",
+                  "press",
+                  "carousel_menu",
+                  "club_clinics",
+                  "event",
+                  "category",
+                  "post_tag",
+                  "press-category",
+                  "location_category",
+                  "location_type",
+                  "continents",
+                  "country",
+                  "pro_clinics",
+                  "month",
+                  "any"
+                ],
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "exclude",
+            "in": "query",
+            "required": false,
+            "description": "Ensure result set excludes specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "description": "Limit result set to specific IDs.",
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "X-WP-Total": {
+                "description": "Total number of items in the collection.",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-WP-TotalPages": {
+                "description": "Total number of pages available.",
+                "schema": {
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required or insufficient capability (code rest_forbidden).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No route or resource matched (code rest_no_route / rest_post_invalid_id).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WPError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "WPError": {
+        "type": "object",
+        "description": "WordPress REST API error envelope, observed verbatim on live 401/404 responses.",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Machine-readable error slug, e.g. rest_forbidden, rest_no_route, rest_oauth_required."
+          },
+          "message": {
+            "type": "string",
+            "description": "Human-readable error message."
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "integer",
+                "description": "HTTP status code."
+              }
+            }
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "applicationPassword": {
+        "type": "http",
+        "scheme": "basic",
+        "description": "WordPress Application Passwords. Authorization endpoint advertised by the live API root: https://thepicklr.com/wp-admin/authorize-application.php. Required for any write operation; anonymous callers get the read-only surface described here."
+      },
+      "oauth2": {
+        "type": "oauth2",
+        "description": "OAuth 2.1 authorization code + PKCE (S256) with RFC 7591 dynamic client registration, advertised at https://thepicklr.com/.well-known/oauth-authorization-server. Gates the MCP endpoint, not the wp/v2 read surface.",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://thepicklr.com/wp-admin/admin.php?page=novamira-oauth-authorize",
+            "tokenUrl": "https://thepicklr.com/wp-json/novamira/v1/oauth/token",
+            "refreshUrl": "https://thepicklr.com/wp-json/novamira/v1/oauth/token",
+            "scopes": {
+              "mcp": "Access the Model Context Protocol server exposed by the site."
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "categories"
+    },
+    {
+      "name": "club_clinics"
+    },
+    {
+      "name": "event"
+    },
+    {
+      "name": "location"
+    },
+    {
+      "name": "media"
+    },
+    {
+      "name": "pages"
+    },
+    {
+      "name": "posts"
+    },
+    {
+      "name": "press"
+    },
+    {
+      "name": "search"
+    },
+    {
+      "name": "tags"
+    },
+    {
+      "name": "taxonomies"
+    },
+    {
+      "name": "types"
+    }
+  ]
+}

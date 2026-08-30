@@ -1,0 +1,105 @@
+generated: '2026-08-30'
+method: derived
+source: openapi/the-picklr-wordpress-rest-openapi.json + live probes of https://thepicklr.com/wp-json/
+name: The Picklr — API conventions
+description: >-
+  Cross-cutting runtime semantics for the public read surface at https://thepicklr.com/wp-json.
+  These are WordPress REST API core conventions, confirmed against live responses from this
+  deployment rather than assumed from the platform: the pagination headers, the error
+  envelope and the parameter names below were all observed on the wire on 2026-08-30. The
+  provider publishes no conventions documentation of its own.
+base_url: https://thepicklr.com/wp-json
+auth_style:
+  public_read: none
+  writes: WordPress Application Passwords (HTTP Basic)
+  mcp: OAuth 2.1 bearer, scope "mcp"
+  reference: authentication/the-picklr-authentication.yml
+pagination:
+  style: page-number
+  parameters:
+    page: {type: integer, default: 1, minimum: 1}
+    per_page: {type: integer, default: 10, minimum: 1, maximum: 100}
+    offset: {type: integer, note: Alternative to page on most collections.}
+  response_headers:
+    X-WP-Total: Total number of items in the collection.
+    X-WP-TotalPages: Total number of pages at the current per_page.
+    Link: 'RFC 8288 link header carrying rel="next" and rel="prev".'
+  observed:
+    url: https://thepicklr.com/wp-json/wp/v2/posts?per_page=1
+    x_wp_total: 23
+    x_wp_totalpages: 23
+    link: '<https://thepicklr.com/wp-json/wp/v2/posts?per_page=1&page=2>; rel="next"'
+  note: Cursor pagination is not offered. Deep paging is page-number only.
+sparse_fields:
+  supported: true
+  parameter: _fields
+  style: 'Comma-separated list of top-level properties, e.g. ?_fields=id,title,link'
+field_expansion:
+  supported: true
+  parameter: _embed
+  note: 'Inlines linked resources (author, featured media, terms) under _embedded.'
+context_negotiation:
+  parameter: context
+  values: [view, embed, edit]
+  default: view
+  note: >-
+    Determines which fields are present in the response. "edit" requires an authenticated
+    user with edit capability and returns 401 rest_forbidden anonymously.
+filtering_and_sorting:
+  search: {parameter: search, type: string}
+  ordering: {parameters: [order, orderby], order_values: [asc, desc]}
+  date_windows: [after, before, modified_after, modified_before]
+  inclusion: [include, exclude, slug, status]
+error_envelope:
+  shape: 'WordPress REST error object: {"code": "<slug>", "message": "<text>", "data": {"status": <int>}}'
+  format: not-rfc9457
+  content_type: application/json
+  reference: errors/the-picklr-problem-types.yml
+  note: >-
+    Not RFC 9457 problem+json. There is no type URI, no instance, and no trace identifier.
+request_id_tracing:
+  supported: false
+  note: No correlation, request-id or trace header is returned on any observed response.
+versioning:
+  style: path-namespace
+  current: wp/v2
+  namespaces_live: 36
+  note: >-
+    Versioning is per-namespace and inherited from WordPress core and the installed plugins;
+    The Picklr publishes no versioning policy of its own.
+  reference: lifecycle/the-picklr-lifecycle.yml
+rate_limit_signaling:
+  headers_returned: none
+  observed: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header appeared on any 2xx or 4xx response
+    during probing on 2026-08-30.
+  reference: rate-limits/the-picklr-rate-limits.yml
+idempotency:
+  supported: na
+  reason: >-
+    The anonymously reachable surface is GET-only, and GET is idempotent by HTTP semantics.
+    No Idempotency-Key header is accepted or documented on any route. Write routes exist but
+    are gated behind Application Passwords and are not part of a published API product, so
+    there is no third-party write path for an idempotency contract to govern.
+dry_run_mode:
+  supported: na
+  reason: No write surface is available to third parties, so there is nothing to rehearse.
+reversibility:
+  grade: na
+  applicable: false
+  reason: >-
+    Read-only for every caller this pipeline can reach. There is no third-party write, no
+    booking, no payment and no state-changing operation in the contract, so there is no
+    action for an agent to take back. Reversibility is not applicable rather than absent —
+    court reservations and membership billing, which ARE reversible actions with real
+    windows, happen on PlayByPoint (app.playbypoint.com), a third-party platform outside
+    The Picklr's published API surface.
+  reversal_operations: []
+  windows: []
+  note: >-
+    NEVER assert a cancellation or refund window for a Picklr membership from this artifact.
+    Those terms live in club-level PlayByPoint agreements and in
+    https://thepicklr.com/terms-of-use/, not in any machine-readable contract.
+caching:
+  observed_headers: [Link, Allow]
+  note: Allow header advertises the permitted methods per route.
