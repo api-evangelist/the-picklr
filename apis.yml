@@ -13,6 +13,22 @@ description: >-
   server with PKCE and dynamic client registration. Court booking, membership billing and
   reservations run on PlayByPoint, a third-party platform, and are outside any Picklr-owned
   contract.
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  - scopes
+  - rate-limits
+  - security
+  generated: '2026-09-02'
+  method: derived
 image: https://thepicklr.com/wp-content/uploads/2022/12/logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/the-picklr/refs/heads/main/apis.yml
 x-type: company
