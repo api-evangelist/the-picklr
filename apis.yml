@@ -66,51 +66,14 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 apis:
-- name: The Picklr WordPress REST API
-  description: >-
-    The public read surface of thepicklr.com, served by WordPress core and the site's plugins.
-    Anonymous GET returns the franchise's own published content — 157 club location records,
-    53 pages, 23 blog posts, 5 press items and 4 events — with page-number pagination,
-    X-WP-Total headers and sparse-fieldset support. Writes require a WordPress Application
-    Password and are not offered to third parties. No OpenAPI is published by the provider;
-    the description in openapi/ is a mechanical transform of the route index the site serves
-    at /wp-json/, restricted to routes whose anonymous access was individually verified.
-  humanURL: https://thepicklr.com/wp-json/
-  baseURL: https://thepicklr.com/wp-json
-  tags:
-  - Content
-  - Locations
-  - Event
-  - WordPress
-  tags_raw:
-  - Content
-  - Locations
-  - Events
-  - WordPress
-  properties:
-  - type: OpenAPI
-    url: openapi/the-picklr-wordpress-rest-openapi.json
-  - type: Overlay
-    url: overlays/the-picklr-wordpress-rest-overlay.yaml
-  - type: DataModel
-    url: data-model/the-picklr-data-model.yml
-  - type: ErrorCatalog
-    url: errors/the-picklr-problem-types.yml
-  - type: Conventions
-    url: conventions/the-picklr-conventions.yml
-  - type: RateLimits
-    url: rate-limits/the-picklr-rate-limits.yml
-  - type: AgentSkill
-    url: skills/_index.yml
 - name: The Picklr MCP Server
   description: >-
-    Three Model Context Protocol endpoints registered under the mcp REST namespace on
-    thepicklr.com, exposed by the Novamira WordPress plugin (v1.11.4). The canonical one,
-    /wp-json/mcp/novamira-oauth, is named as the protected resource by the site's RFC 9728
-    metadata and is gated by OAuth 2.1 with a single scope, "mcp". tools/list returns HTTP 401
-    anonymously, so the live tool set and its input schemas were not enumerated and are not
-    asserted. This is a site-management agent surface over the marketing site, not a booking
-    or membership API.
+    Three Model Context Protocol endpoints registered under the mcp REST namespace on thepicklr.com, exposed
+    by the Novamira WordPress plugin (v1.11.4). The canonical one, /wp-json/mcp/novamira-oauth, is named
+    as the protected resource by the site's RFC 9728 metadata and is gated by OAuth 2.1 with a single
+    scope, "mcp". tools/list returns HTTP 401 anonymously, so the live tool set and its input schemas
+    were not enumerated and are not asserted. This is a site-management agent surface over the marketing
+    site, not a booking or membership API.
   humanURL: https://thepicklr.com/wp-json/mcp
   baseURL: https://thepicklr.com/wp-json/mcp/novamira-oauth
   tags:
@@ -128,7 +91,225 @@ apis:
     url: authentication/the-picklr-authentication.yml
   - type: OAuthScopes
     url: scopes/the-picklr-scopes.yml
+- aid: the-picklr:the-picklr-categories-api
+  name: The Picklr Categories API
+  description: The categories API from The Picklr — 2 operation(s) for categories.
+  humanURL: https://thepicklr.com/wp-json/
+  baseURL: https://thepicklr.com/wp-json
+  tags:
+  - categories
+  properties:
+  - type: OpenAPI
+    url: openapi/the-picklr-categories-api-openapi.yml
+  - type: DataModel
+    url: data-model/the-picklr-data-model.yml
+  - type: ErrorCatalog
+    url: errors/the-picklr-problem-types.yml
+  - type: Conventions
+    url: conventions/the-picklr-conventions.yml
+  - type: RateLimits
+    url: rate-limits/the-picklr-rate-limits.yml
+- aid: the-picklr:the-picklr-club-clinics-api
+  name: The Picklr Club Clinics API
+  description: The club_clinics API from The Picklr — 2 operation(s) for club_clinics.
+  humanURL: https://thepicklr.com/wp-json/
+  baseURL: https://thepicklr.com/wp-json
+  tags:
+  - club_clinics
+  properties:
+  - type: OpenAPI
+    url: openapi/the-picklr-club-clinics-api-openapi.yml
+  - type: DataModel
+    url: data-model/the-picklr-data-model.yml
+  - type: ErrorCatalog
+    url: errors/the-picklr-problem-types.yml
+  - type: Conventions
+    url: conventions/the-picklr-conventions.yml
+  - type: RateLimits
+    url: rate-limits/the-picklr-rate-limits.yml
+- aid: the-picklr:the-picklr-event-api
+  name: The Picklr Event API
+  description: The event API from The Picklr — 2 operation(s) for event.
+  humanURL: https://thepicklr.com/wp-json/
+  baseURL: https://thepicklr.com/wp-json
+  tags:
+  - event
+  properties:
+  - type: OpenAPI
+    url: openapi/the-picklr-event-api-openapi.yml
+  - type: DataModel
+    url: data-model/the-picklr-data-model.yml
+  - type: ErrorCatalog
+    url: errors/the-picklr-problem-types.yml
+  - type: Conventions
+    url: conventions/the-picklr-conventions.yml
+  - type: RateLimits
+    url: rate-limits/the-picklr-rate-limits.yml
+- aid: the-picklr:the-picklr-location-api
+  name: The Picklr Location API
+  description: The location API from The Picklr — 2 operation(s) for location.
+  humanURL: https://thepicklr.com/wp-json/
+  baseURL: https://thepicklr.com/wp-json
+  tags:
+  - location
+  properties:
+  - type: OpenAPI
+    url: openapi/the-picklr-location-api-openapi.yml
+  - type: DataModel
+    url: data-model/the-picklr-data-model.yml
+  - type: ErrorCatalog
+    url: errors/the-picklr-problem-types.yml
+  - type: Conventions
+    url: conventions/the-picklr-conventions.yml
+  - type: RateLimits
+    url: rate-limits/the-picklr-rate-limits.yml
+- aid: the-picklr:the-picklr-media-api
+  name: The Picklr Media API
+  description: The media API from The Picklr — 2 operation(s) for media.
+  humanURL: https://thepicklr.com/wp-json/
+  baseURL: https://thepicklr.com/wp-json
+  tags:
+  - media
+  properties:
+  - type: OpenAPI
+    url: openapi/the-picklr-media-api-openapi.yml
+  - type: DataModel
+    url: data-model/the-picklr-data-model.yml
+  - type: ErrorCatalog
+    url: errors/the-picklr-problem-types.yml
+  - type: Conventions
+    url: conventions/the-picklr-conventions.yml
+  - type: RateLimits
+    url: rate-limits/the-picklr-rate-limits.yml
+- aid: the-picklr:the-picklr-pages-api
+  name: The Picklr Pages API
+  description: The pages API from The Picklr — 2 operation(s) for pages.
+  humanURL: https://thepicklr.com/wp-json/
+  baseURL: https://thepicklr.com/wp-json
+  tags:
+  - pages
+  properties:
+  - type: OpenAPI
+    url: openapi/the-picklr-pages-api-openapi.yml
+  - type: DataModel
+    url: data-model/the-picklr-data-model.yml
+  - type: ErrorCatalog
+    url: errors/the-picklr-problem-types.yml
+  - type: Conventions
+    url: conventions/the-picklr-conventions.yml
+  - type: RateLimits
+    url: rate-limits/the-picklr-rate-limits.yml
+- aid: the-picklr:the-picklr-posts-api
+  name: The Picklr Posts API
+  description: The posts API from The Picklr — 2 operation(s) for posts.
+  humanURL: https://thepicklr.com/wp-json/
+  baseURL: https://thepicklr.com/wp-json
+  tags:
+  - posts
+  properties:
+  - type: OpenAPI
+    url: openapi/the-picklr-posts-api-openapi.yml
+  - type: DataModel
+    url: data-model/the-picklr-data-model.yml
+  - type: ErrorCatalog
+    url: errors/the-picklr-problem-types.yml
+  - type: Conventions
+    url: conventions/the-picklr-conventions.yml
+  - type: RateLimits
+    url: rate-limits/the-picklr-rate-limits.yml
+- aid: the-picklr:the-picklr-press-api
+  name: The Picklr Press API
+  description: The press API from The Picklr — 2 operation(s) for press.
+  humanURL: https://thepicklr.com/wp-json/
+  baseURL: https://thepicklr.com/wp-json
+  tags:
+  - press
+  properties:
+  - type: OpenAPI
+    url: openapi/the-picklr-press-api-openapi.yml
+  - type: DataModel
+    url: data-model/the-picklr-data-model.yml
+  - type: ErrorCatalog
+    url: errors/the-picklr-problem-types.yml
+  - type: Conventions
+    url: conventions/the-picklr-conventions.yml
+  - type: RateLimits
+    url: rate-limits/the-picklr-rate-limits.yml
+- aid: the-picklr:the-picklr-search-api
+  name: The Picklr Search API
+  description: The search API from The Picklr — 1 operation(s) for search.
+  humanURL: https://thepicklr.com/wp-json/
+  baseURL: https://thepicklr.com/wp-json
+  tags:
+  - search
+  properties:
+  - type: OpenAPI
+    url: openapi/the-picklr-search-api-openapi.yml
+  - type: DataModel
+    url: data-model/the-picklr-data-model.yml
+  - type: ErrorCatalog
+    url: errors/the-picklr-problem-types.yml
+  - type: Conventions
+    url: conventions/the-picklr-conventions.yml
+  - type: RateLimits
+    url: rate-limits/the-picklr-rate-limits.yml
+- aid: the-picklr:the-picklr-tags-api
+  name: The Picklr Tags API
+  description: The tags API from The Picklr — 2 operation(s) for tags.
+  humanURL: https://thepicklr.com/wp-json/
+  baseURL: https://thepicklr.com/wp-json
+  tags:
+  - tags
+  properties:
+  - type: OpenAPI
+    url: openapi/the-picklr-tags-api-openapi.yml
+  - type: DataModel
+    url: data-model/the-picklr-data-model.yml
+  - type: ErrorCatalog
+    url: errors/the-picklr-problem-types.yml
+  - type: Conventions
+    url: conventions/the-picklr-conventions.yml
+  - type: RateLimits
+    url: rate-limits/the-picklr-rate-limits.yml
+- aid: the-picklr:the-picklr-taxonomies-api
+  name: The Picklr Taxonomies API
+  description: The taxonomies API from The Picklr — 1 operation(s) for taxonomies.
+  humanURL: https://thepicklr.com/wp-json/
+  baseURL: https://thepicklr.com/wp-json
+  tags:
+  - taxonomies
+  properties:
+  - type: OpenAPI
+    url: openapi/the-picklr-taxonomies-api-openapi.yml
+  - type: DataModel
+    url: data-model/the-picklr-data-model.yml
+  - type: ErrorCatalog
+    url: errors/the-picklr-problem-types.yml
+  - type: Conventions
+    url: conventions/the-picklr-conventions.yml
+  - type: RateLimits
+    url: rate-limits/the-picklr-rate-limits.yml
+- aid: the-picklr:the-picklr-types-api
+  name: The Picklr Types API
+  description: The types API from The Picklr — 1 operation(s) for types.
+  humanURL: https://thepicklr.com/wp-json/
+  baseURL: https://thepicklr.com/wp-json
+  tags:
+  - types
+  properties:
+  - type: OpenAPI
+    url: openapi/the-picklr-types-api-openapi.yml
+  - type: DataModel
+    url: data-model/the-picklr-data-model.yml
+  - type: ErrorCatalog
+    url: errors/the-picklr-problem-types.yml
+  - type: Conventions
+    url: conventions/the-picklr-conventions.yml
+  - type: RateLimits
+    url: rate-limits/the-picklr-rate-limits.yml
 common:
+- type: Overlay
+  url: overlays/the-picklr-wordpress-rest-overlay.yaml
 - type: DomainSecurity
   url: security/the-picklr-domain-security.yml
 - type: Website
