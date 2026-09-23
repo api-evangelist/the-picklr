@@ -1,0 +1,42 @@
+{
+  "provider": "the-picklr",
+  "sources": [
+    "_original/the-picklr-wordpress-rest-openapi.json"
+  ],
+  "outputs": [
+    "the-picklr-categories-api-openapi.yml",
+    "the-picklr-club-clinics-api-openapi.yml",
+    "the-picklr-event-api-openapi.yml",
+    "the-picklr-location-api-openapi.yml",
+    "the-picklr-media-api-openapi.yml",
+    "the-picklr-pages-api-openapi.yml",
+    "the-picklr-posts-api-openapi.yml",
+    "the-picklr-press-api-openapi.yml",
+    "the-picklr-search-api-openapi.yml",
+    "the-picklr-tags-api-openapi.yml",
+    "the-picklr-taxonomies-api-openapi.yml",
+    "the-picklr-types-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "the-picklr-wordpress-rest-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "the-picklr-categories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "the-picklr-club-clinics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "the-picklr-event-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "the-picklr-location-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "the-picklr-media-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "the-picklr-pages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "the-picklr-posts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "the-picklr-press-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "the-picklr-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "the-picklr-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "the-picklr-taxonomies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "the-picklr-types-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

@@ -1,0 +1,116 @@
+openapi: 3.2.0
+info:
+  title: Picklr WordPress REST API (derived) Types API
+  version: wp/v2
+  summary: Public read surface of thepicklr.com, derived from the live WordPress REST route index.
+  description: DERIVED ARTIFACT — The Picklr does NOT publish an OpenAPI description.
+  contact:
+    name: The Picklr
+    url: https://thepicklr.com/
+    email: hello@thepicklr.com
+  termsOfService: https://thepicklr.com/terms-of-use/
+  x-provenance:
+    method: derived
+    source: https://thepicklr.com/wp-json/
+    source_http_status: 200
+    derived: '2026-08-30'
+    derived_by: api-evangelist enrichment pipeline (local-v1)
+    note: Not published by the provider. Do not represent this as a first-party specification.
+servers:
+- url: https://thepicklr.com/wp-json
+  description: Production WordPress REST API for thepicklr.com
+security: []
+tags:
+- name: Types
+paths:
+  /wp/v2/types:
+    get:
+      operationId: get_wp_v2_types
+      summary: List types
+      description: Anonymous read access verified 2026-08-30 against the live endpoint.
+      tags:
+      - Types
+      parameters:
+      - name: context
+        in: query
+        required: false
+        description: Scope under which the request is made; determines fields present in response.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+          headers:
+            X-WP-Total:
+              description: Total number of items in the collection.
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total number of pages available.
+              schema:
+                type: integer
+        '400':
+          description: Invalid parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '401':
+          description: Authentication required or insufficient capability (code rest_forbidden).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+        '404':
+          description: No route or resource matched (code rest_no_route / rest_post_invalid_id).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WPError'
+components:
+  schemas:
+    WPError:
+      type: object
+      description: WordPress REST API error envelope, observed verbatim on live 401/404 responses.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug, e.g. rest_forbidden, rest_no_route, rest_oauth_required.
+        message:
+          type: string
+          description: Human-readable error message.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status code.
+      required:
+      - code
+      - message
+  securitySchemes:
+    applicationPassword:
+      type: http
+      scheme: basic
+      description: 'WordPress Application Passwords. Authorization endpoint advertised by the live API root: https://thepicklr.com/wp-admin/authorize-application.php. Required for any write operation; anonymous callers get the read-only surface described here.'
+    oauth2:
+      type: oauth2
+      description: OAuth 2.1 authorization code + PKCE (S256) with RFC 7591 dynamic client registration, advertised at https://thepicklr.com/.well-known/oauth-authorization-server. Gates the MCP endpoint, not the wp/v2 read surface.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://thepicklr.com/wp-admin/admin.php?page=novamira-oauth-authorize
+          tokenUrl: https://thepicklr.com/wp-json/novamira/v1/oauth/token
+          refreshUrl: https://thepicklr.com/wp-json/novamira/v1/oauth/token
+          scopes:
+            mcp: Access the Model Context Protocol server exposed by the site.
