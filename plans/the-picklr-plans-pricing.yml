@@ -86,3 +86,46 @@ x-evidence:
   fetched: '2026-08-30'
   url: https://thepicklr.com/membership-and-pricing/
   http_status: 200
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - subscription
+  units: []
+  plans:
+  - name: Unlimited Membership
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: PLAY Membership
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Junior Unlimited Membership
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Family Unlimited Membership
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Trial Membership
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Non-Member Pricing
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
