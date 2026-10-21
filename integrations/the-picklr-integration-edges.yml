@@ -1,0 +1,93 @@
+edges:
+- partner_name: International Franchise Association member franchise brands
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.franchise.org/franchise-opportunities/
+  category: franchise industry association franchisor member
+  contract_reference:
+    register: International Franchise Association member franchise brands
+    spec_file: null
+    standard: null
+    role: ifa-franchisor-member
+    registrations:
+    - registered_name: The Picklr
+      licences:
+      - ifa-franchisor-member
+      register_country: null
+      matched_name: The Picklr
+      matched_domain: thepicklr.com
+      matched_by: domain
+      categories:
+      - recreation exercise sports ent products
+      page: https://www.franchise.org/franchise-opportunities/the-picklr/
+      identity: wikidata Q140393337 'The Picklr' P856 https://thepicklr.com/
+    signal_note: 'participation only: listed in the IFA directory; no certification or API conformance'
+    detected_by: sweep-franchise-registries.py
+    detected: '2026-10-21'
+    identity_source: wikidata P856 (labelled provenance step; Kin 2026-10-15 decision 1)
+  detected_by: sweep-franchise-registries.py
+  first_seen: '2026-10-21'
+- partner_name: Minnesota Department of Commerce franchise registrations (CARDS)
+  partner: null
+  partner_match: register
+  type: register
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://cards.web.commerce.state.mn.us/franchise-registrations
+  category: state franchise registration (FDD registered with the Minnesota Commissioner of Commerce)
+  contract_reference:
+    register: Minnesota Department of Commerce franchise registrations (CARDS)
+    spec_file: null
+    standard: null
+    role: registered-franchisor
+    registrations:
+    - registered_name: Picklr Franchise Inc.
+      licences:
+      - registered franchisor (FDD registration order)
+      register_country: US
+      matched_name: The Picklr
+      matched_domain: thepicklr.com
+      matched_by: domain
+      brands:
+      - The Picklr
+      file_numbers:
+      - '11200'
+      latest_order: '2026-06-25'
+      latest_order_type: Order of Renewed Registration w Amendment
+      identity: wikidata Q140393337 'The Picklr' P856 https://thepicklr.com/
+    signal_note: 'participation only: a state franchise registration order; no API conformance is published by this
+      register'
+    detected_by: sweep-franchise-registries.py
+    detected: '2026-10-21'
+    identity_source: wikidata P856 (labelled provenance step; Kin 2026-10-15 decision 1)
+  detected_by: sweep-franchise-registries.py
+  first_seen: '2026-10-21'
+generated: '2026-10-21'
+method: searched
+source:
+- https://cards.web.commerce.state.mn.us/franchise-registrations
+- https://www.franchise.org/suppliers/
+- https://www.franchise.org/franchise-opportunities/
+- https://squareup.com/us/en/franchises
+- https://docqnet.dfpi.ca.gov/
+- https://dfpi.ca.gov/regulated-industries/regulated-entities-list/
+- https://apps.dfi.wi.gov/apps/FranchiseSearch/MainSearch.aspx
+- https://www.franchise.org/wp-json/wp/v2/member
+- https://pos.toasttab.com/franchise
+- https://www.servicetitan.com/market/franchise-management-software
+checked:
+- https://apps.dfi.wi.gov/apps/FranchiseSearch/MainSearch.aspx
+- https://cards.web.commerce.state.mn.us/franchise-registrations
+- https://dfpi.ca.gov/regulated-industries/regulated-entities-list/
+- https://docqnet.dfpi.ca.gov/
+- https://pos.toasttab.com/franchise
+- https://squareup.com/us/en/franchises
+- https://www.franchise.org/franchise-opportunities/
+- https://www.franchise.org/suppliers/
+- https://www.franchise.org/wp-json/wp/v2/member
+- https://www.servicetitan.com/market/franchise-management-software
